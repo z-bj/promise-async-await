@@ -18,12 +18,17 @@ let get = (url) => {
 };
 
 let getPosts = async () => {
-  let response = await get("https://jsonplaceholder.typicode.com/users");
-  let users = JSON.parse(response);
-  response = await get(
-    "https://jsonplaceholder.typicode.com/comments?userId=" + users[0].id
-  );
-  let posts = JSON.parse(response);
+  try {
+    let response = await get("https://jsonplaceholder.typicode.com/users");
+    let users = JSON.parse(response);
+    response = await get(
+      "https://jsonplaceholder.typicode.com/comments?userId=" + users[0].id
+    );
+    let posts = JSON.parse(response);
+  } catch (e) {
+    console.log("il y a eu un problem", e);
+  }
+
   return posts;
 };
 
