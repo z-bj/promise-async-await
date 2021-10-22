@@ -17,30 +17,25 @@ let get = (url) => {
   });
 };
 
-get("https://jsonplaceholder.typicode.com/users").then((response) => {
-  console.log(response);
-});
+let catchError = (e) => {
+  console.error("Erreur ajax", e);
+};
 
 let getPosts = (success, error) => {
-  //   get(
-  //     "https://jsonplaceholder.typicode.com/users",
-  //     (response) => {
-  //       let users = JSON.parse(response);
-  //       get(
-  //         "https://jsonplaceholder.typicode.com/comments?userId=" + users[0].id,
-  //         (response) => {
-  //           let posts = JSON.parse(response);
-  //           success(posts);
-  //         },
-  //         (e) => {
-  //           error("Erreur ajax", e);
-  //         }
-  //       );
-  //     },
-  //     (error) => {
-  //       error("Erreur ajax", e);
-  //     }
-  //   );
+  return new Promise((resolve, reject) => {
+    get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        let users = JSON.parse(response);
+        get(
+          "https://jsonplaceholder.typicode.com/comments?userId=" + users[0].id
+        ).then((response) => {
+            let posts= JSON.parse(response);
+          resolve(posts);
+        });
+      })
+      .catch(catchError)
+      .catch(catchError);
+  });
 };
 
 // console.log(
