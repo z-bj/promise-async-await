@@ -27,13 +27,11 @@ let getPosts = async () => {
   return posts;
 };
 
-getPosts()
-  .then((posts) => {
-    console.log(posts[0]);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  .then(() => {
-    console.log("fin des requetes Ajax");
-  });
+let getFirstPosts = async () => {
+  let posts = await getPosts();
+  return posts[0];
+};
+
+getFirstPosts().then((posts) => {
+  console.log(post);
+});
