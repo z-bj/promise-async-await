@@ -32,6 +32,9 @@ let getFirstPosts = async () => {
   return posts[0];
 };
 
-getFirstPosts().then((posts) => {
-  console.log(post);
-});
+let demo = async () => {
+  let arr = await Promise.allSettled([getPosts(), getFirstPosts()]);
+  console.log(arr);
+};
+
+demo();
